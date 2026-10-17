@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PS3 — Prompt-Injection Firewall | AI Security Gateway</title>
+  <meta name="description" content="Production-ready Prompt Injection Firewall defending AI pipelines against jailbreaks, direct overrides, and indirect smuggling.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="cyber-theme">
+  <!-- Top Application Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Prompt-Injection Firewall <span class="badge-accent">PS3</span></h1>
+          <p class="subtitle">AI Security Gateway & Threat Interceptor</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button class="nav-tab active" id="tab-btn-analyze" data-tab="analyze-view" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Analyze Content
+        </button>
+        <button class="nav-tab" id="tab-btn-dashboard" data-tab="dashboard-view" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Security Dashboard
+        </button>
+        <button class="nav-tab" id="tab-btn-audit" data-tab="audit-view" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Audit Logs
+        </button>
+        <button class="nav-tab" id="tab-btn-architecture" data-tab="architecture-view" role="tab">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Architecture Guide
+        </button>
+      </nav>
+
+      <!-- System Health Indicator -->
+      <div class="system-status" id="system-status-indicator">
+        <span class="status-pulse"></span>
+        <span class="status-text" id="status-label">Connecting to Firewall...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- ==================== VIEW 1: ANALYZE CONTENT ==================== -->
+    <section id="analyze-view" class="view-panel active" role="tabpanel">
+      <div class="grid-layout">
+        
+        <!-- Left: Input & Preset Workbench -->
+        <div class="card workbench-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h2>Inspect Untrusted Ingestion</h2>
+              <p class="card-desc">Simulate emails or webpage extracts arriving before your downstream AI summarizer.</p>
+            </div>
+            <div class="input-type-toggle" role="group" aria-label="Input content type">
+              <button type="button" class="type-btn active" data-type="email" id="type-email-btn">Email</button>
+              <button type="button" class="type-btn" data-type="webpage" id="type-webpage-btn">Webpage</button>
+            </div>
+          </div>
+
+          <!-- Quick Samples Toolbar -->
+          <div class="presets-section">
+            <span class="presets-label">Load Test Scenario:</span>
+            <div class="presets-buttons">
+              <button type="button" class="preset-btn safe-preset" id="preset-safe-email" title="Normal project coordination email">
+                <span class="dot safe"></span> Safe Email
+              </button>
+              <button type="button" class="preset-btn safe-preset" id="preset-benign-security" title="Legitimate business discussion of security rules">
+                <span class="dot safe"></span> Benign 'Ignore' Mention
+              </button>
+              <button type="button" class="preset-btn threat-preset" id="preset-task-override" title="Direct command to disregard rules">
+                <span class="dot threat"></span> Direct Override
+              </button>
+              <button type="button" class="preset-btn threat-preset" id="preset-secret-leak" title="Attempt to extract system instructions">
+                <span class="dot threat"></span> Prompt Exfiltration
+              </button>
+              <button type="button" class="preset-btn threat-preset" id="preset-html-smuggle" title="Malicious payload hidden inside HTML comments">
+                <span class="dot threat"></span> HTML Smuggling
+              </button>
+              <button type="button" class="preset-btn threat-preset" id="preset-obfuscation" title="Adversarial zero-width evasion and character substitution">
+                <span class="dot threat"></span> Obfuscated Attack
+              </button>
+            </div>
+          </div>
+
+          <!-- Text Input Form -->
+          <form id="analyze-form" class="analysis-form">
+            <div class="editor-wrapper">
+              <textarea 
+                id="content-input" 
+                class="cyber-textarea" 
+                placeholder="Paste incoming email body or scraped webpage HTML/text here to evaluate..."
+                rows="10" 
+                required
+              ></textarea>
+              <div class="editor-statusbar">
+                <span id="char-counter">0 chars</span>
+                <span id="line-counter">1 lines</span>
+              </div>
+            </div>
+
+            <div class="action-bar">
+              <button type="button" class="btn btn-secondary" id="clear-input-btn">
+                Clear Input
+              </button>
+              <button type="submit" class="btn btn-primary" id="analyze-submit-btn">
+                <span class="btn-spinner hidden" id="analyze-spinner"></span>
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Analyze Content</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Real-time Analysis Verdict & Gatekeeper -->
+        <div class="card result-card" id="result-container">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h2>Firewall Verdict</h2>
+              <p class="card-desc" id="verdict-status-sub">Awaiting content submission...</p>
+            </div>
+            <div id="verdict-badge-container">
+              <span class="badge badge-neutral" id="verdict-badge">STANDBY</span>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-state" id="empty-state-view">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h3>No Active Inspection</h3>
+            <p>Select a scenario preset above or paste text to evaluate risk score, attack signatures, and AI gateway authorization.</p>
+          </div>
+
+          <!-- Populated State -->
+          <div class="verdict-details hidden" id="verdict-content-view">
+            
+            <!-- Risk Meter & Action Pill -->
+            <div class="risk-overview-strip">
+              <div class="meter-box">
+                <div class="score-circle-wrapper">
+                  <div class="score-value" id="risk-score-display">0</div>
+                  <div class="score-label">/ 100 Risk</div>
+                </div>
+                <div class="meter-bar-track">
+                  <div class="meter-bar-fill" id="risk-meter-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="action-decision-box">
+                <span class="decision-label">Recommended Action</span>
+                <span class="decision-value" id="action-decision-pill">ALLOW</span>
+                <span class="source-tag" id="classifier-source-tag">Source: Rules Engine</span>
+              </div>
+            </div>
+
+            <!-- Explainable Reasons List -->
+            <div class="section-block">
+              <h3 class="section-title">Detection Reasons & Insights</h3>
+              <ul class="reasons-list" id="reasons-list">
+                <!-- Dynamically injected -->
+              </ul>
+            </div>
+
+            <!-- Detected Signatures Table -->
+            <div class="section-block" id="patterns-section">
+              <h3 class="section-title">Identified Attack Signatures</h3>
+              <div class="table-responsive">
+                <table class="data-table" id="patterns-table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Signature</th>
+                      <th>Severity</th>
+                      <th>Matched Excerpt</th>
+                    </tr>
+                  </thead>
+                  <tbody id="patterns-tbody">
+                    <!-- Injected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Sanitized Text Preview (If Zero-Width was stripped) -->
+            <div class="section-block hidden" id="sanitized-section">
+              <h3 class="section-title">Normalized Stream Preview</h3>
+              <p class="section-caption">Zero-width and invisible unicode characters were safely stripped by text normalizer.</p>
+              <pre class="code-preview" id="sanitized-text-preview"></pre>
+            </div>
+
+            <!-- Downstream AI Summarizer Gatekeeper -->
+            <div class="summarizer-gate-panel">
+              <div class="gate-header">
+                <div>
+                  <h3 class="gate-title">Downstream AI Summarizer</h3>
+                  <p class="gate-subtitle">Backend policy strictly blocks high-risk text before summarizer ingestion.</p>
+                </div>
+                <button type="button" class="btn btn-accent" id="summarize-btn">
+                  <span class="btn-spinner hidden" id="summarize-spinner"></span>
+                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <span>Summarize Permitted Content</span>
+                </button>
+              </div>
+
+              <!-- Block Explanation Warning -->
+              <div class="blocked-alert hidden" id="summarizer-blocked-alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div>
+                  <strong>Summarization Prohibited by Security Policy</strong>
+                  <p>This payload was evaluated as HIGH risk. The backend firewall denies forwarding this text to any AI model or external API.</p>
+                </div>
+              </div>
+
+              <!-- Summarizer Result Output -->
+              <div class="summary-output-card hidden" id="summary-result-card">
+                <div class="summary-meta">
+                  <span class="mode-pill" id="summarizer-mode-pill">Safe Demo Mode</span>
+                  <span class="time-pill" id="summarizer-time-pill">0 ms</span>
+                </div>
+                <div class="summary-body" id="summary-text-container"></div>
+                <div class="summary-bullets-wrapper">
+                  <h4>Key Takeaways:</h4>
+                  <ul class="summary-bullets" id="summary-bullets-list"></ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: SECURITY DASHBOARD ==================== -->
+    <section id="dashboard-view" class="view-panel" role="tabpanel">
+      <div class="dashboard-header-strip">
+        <div>
+          <h2>Security Operations Center Dashboard</h2>
+          <p class="card-desc">Real-time aggregate telemetry computed directly from backend SQLite audit store.</p>
+        </div>
+        <button type="button" class="btn btn-secondary" id="refresh-dashboard-btn">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          Refresh Telemetry
+        </button>
+      </div>
+
+      <!-- Stat Metric Counters -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Analyses</span>
+            <span class="stat-number" id="stat-total-analyses">0</span>
+            <span class="stat-sub">Inspected inputs</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-danger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">High-Risk Blocked</span>
+            <span class="stat-number threat" id="stat-blocked-count">0</span>
+            <span class="stat-sub">Threats neutralized</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-warning">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Medium Risk Flagged</span>
+            <span class="stat-number warning" id="stat-medium-count">0</span>
+            <span class="stat-sub">Reviewed with caution</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-safe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Clean Ratio</span>
+            <span class="stat-number safe" id="stat-clean-ratio">100%</span>
+            <span class="stat-sub">Passed without threats</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Avg Risk Score</span>
+            <span class="stat-number" id="stat-avg-score">0.0</span>
+            <span class="stat-sub">Composite average</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts & Visual Breakdown Grid -->
+      <div class="dashboard-visual-grid">
+        
+        <!-- Risk Distribution Chart Card -->
+        <div class="card visual-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3>Risk Level Distribution</h3>
+              <p class="card-desc">Proportion of Low, Medium, and High threat determinations.</p>
+            </div>
+          </div>
+          <div class="distribution-bars-container">
+            <div class="dist-row">
+              <div class="dist-meta">
+                <span class="dist-title safe">LOW Risk (Allowed)</span>
+                <span class="dist-val" id="dist-low-val">0</span>
+              </div>
+              <div class="dist-bar-track">
+                <div class="dist-bar-fill safe" id="dist-low-bar" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="dist-row">
+              <div class="dist-meta">
+                <span class="dist-title warning">MEDIUM Risk (Caution)</span>
+                <span class="dist-val" id="dist-med-val">0</span>
+              </div>
+              <div class="dist-bar-track">
+                <div class="dist-bar-fill warning" id="dist-med-bar" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <div class="dist-row">
+              <div class="dist-meta">
+                <span class="dist-title threat">HIGH Risk (Blocked)</span>
+                <span class="dist-val" id="dist-high-val">0</span>
+              </div>
+              <div class="dist-bar-track">
+                <div class="dist-bar-fill threat" id="dist-high-bar" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attack Categories Breakdown Card -->
+        <div class="card visual-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3>Triggered Attack Signatures</h3>
+              <p class="card-desc">Most prevalent threat categories intercepted by firewall rules.</p>
+            </div>
+          </div>
+          <div class="categories-list-container" id="category-breakdown-list">
+            <p class="empty-note">No attacks detected yet. Run scenarios in the analyzer to populate statistics.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: AUDIT LOGS ==================== -->
+    <section id="audit-view" class="view-panel" role="tabpanel">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>Audit Trail & Forensics Log</h2>
+            <p class="card-desc">Immutable event trail stored in SQLite. Secrets and raw confidential text are scrubbed before storage.</p>
+          </div>
+          
+          <!-- Filters -->
+          <div class="audit-filters">
+            <select id="filter-risk-level" class="cyber-select" aria-label="Filter by Risk Level">
+              <option value="">All Risk Levels</option>
+              <option value="LOW">LOW</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="HIGH">HIGH</option>
+            </select>
+            <select id="filter-input-type" class="cyber-select" aria-label="Filter by Input Type">
+              <option value="">All Input Types</option>
+              <option value="email">Email</option>
+              <option value="webpage">Webpage</option>
+            </select>
+            <button type="button" class="btn btn-secondary" id="apply-filters-btn">Filter</button>
+          </div>
+        </div>
+
+        <!-- Audit Table -->
+        <div class="table-responsive">
+          <table class="data-table" id="audit-table">
+            <thead>
+              <tr>
+                <th>Request ID</th>
+                <th>Timestamp (UTC)</th>
+                <th>Type</th>
+                <th>Preview (Scrubbed)</th>
+                <th>Risk Score</th>
+                <th>Verdict</th>
+                <th>Reason Codes</th>
+                <th>Action Taken</th>
+                <th>Latency</th>
+              </tr>
+            </thead>
+            <tbody id="audit-tbody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div class="pagination-bar">
+          <span class="pagination-info" id="pagination-info">Showing 0 of 0 events</span>
+          <div class="pagination-buttons">
+            <button type="button" class="btn btn-secondary btn-sm" id="prev-page-btn" disabled>Previous</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="next-page-btn" disabled>Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: ARCHITECTURE GUIDE ==================== -->
+    <section id="architecture-view" class="view-panel" role="tabpanel">
+      <div class="card guide-card">
+        <div class="card-header">
+          <div class="card-title-group">
+            <h2>Architecture & Defense in Depth</h2>
+            <p class="card-desc">Educational reference for developers, security reviewers, and first-year engineering students.</p>
+          </div>
+        </div>
+
+        <div class="guide-grid">
+          <div class="guide-item">
+            <div class="guide-num">01</div>
+            <h3>Unicode & Evasion Normalization</h3>
+            <p>Attackers frequently smuggle adversarial prompts past regex filters using invisible zero-width spaces (e.g. <code>\u200B</code>), soft hyphens, or leetspeak substitutions (e.g. <code>1gn0r3</code>). The firewall first strips hidden characters, normalizes unicode into NFKC form, and evaluates shadow representations.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-num">02</div>
+            <h3>Context-Aware Disambiguation</h3>
+            <p>Naive firewalls generate crippling false positives by blocking any email containing the word "ignore" or "secret". Our context-aware heuristics verify whether the direct object is a business noun (e.g., <em>"ignore the previous email about the meeting"</em>) versus an AI directive (e.g., <em>"ignore all previous instructions"</em>).</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-num">03</div>
+            <h3>Backend Policy Enforcement</h3>
+            <p>Web browser clients are fundamentally untrusted in a secure system. Even if an attacker tampers with JavaScript or submits forged request parameters, the <code>/summarize</code> endpoint independently re-analyzes raw content and strictly enforces a 403 Forbidden gate on HIGH risk payloads.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-num">04</div>
+            <h3>Sandboxed Downstream Summarizer</h3>
+            <p>Content authorized by the firewall is wrapped in strong delimiter boundaries (<code>&lt;DOCUMENT&gt;...&lt;/DOCUMENT&gt;</code>) and passed to an LLM with strict system guardrails instructing it to treat the document as raw untrusted data. No file, email, or database tools are exposed to the model.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-num">05</div>
+            <h3>Privacy-Preserving Audit Logging</h3>
+            <p>To adhere to security best practices and compliance standards, the SQLite audit database records SHA-256 integrity hashes, scrubbed previews, and risk metadata, but never stores confidential raw user documents or API keys.</p>
+          </div>
+
+          <div class="guide-item">
+            <div class="guide-num">06</div>
+            <h3>Deterministic Safe Fallback</h3>
+            <p>If an external AI classification service suffers an outage, network timeout, or has no API key configured, the firewall falls back gracefully to its deterministic heuristic engine without crashing or leaving the gateway open.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>PS3 Prompt-Injection Firewall — Hackathon Edition. Built with FastAPI, SQLite, and Vanilla CSS/JS.</p>
+      <div class="footer-links">
+        <span>Security Policy: Active Gatekeeper</span>
+        <span>•</span>
+        <a href="/docs" target="_blank" rel="noopener">Interactive API Docs (/docs)</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
